@@ -14,18 +14,18 @@
 packages <- c('tidyverse', 'broom', 'lubridate', "hms")
 lapply(packages, library, character.only = T)
 
-# set default ggplot theme
-old.gg <- theme_set(theme_bw() + theme(panel.grid = element_blank()))
-
 
 # # Install packages (if not already)
 # lapply(packages, install.packages)
 
 
+# set default ggplot theme
+old.gg <- theme_set(theme_bw() + theme(panel.grid = element_blank()))
+
 
 # Load & tidy data ----------------------------
 
-folder <- "./Aeris_data/Marks_inc/"
+folder <- "./Aeris_data/"
 
 # Load and row bind multiple GHG data files
 datfiles <- list.files(
@@ -111,7 +111,7 @@ fn_umol_g_h <- function(dppm, soil_g, chamber_cm3 = 1220, temp = 25){
   P_Pa = 101.325*1000 # Atmospheric kPa to Pa
   molv = R * T_K/ P_Pa # units are m^3/mol
   
-  # Calculate flux in umol m^-2 h^-1
+  # Calculate flux in umol g soil^-1 h^-1
   # dppm units ppm/min
   chamber_m3 = chamber_cm3 * 10^-6
   flux_umol_g_h = dppm * chamber_m3 * (1/molv) * 60 * (1/soil_g)
